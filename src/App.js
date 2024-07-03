@@ -1,11 +1,13 @@
 import express from 'express';
 import { createServer } from 'http';
 import authenticationRouter from './routes/authentication.route.js';
+import hotelRouter from './routes/hotel.route.js';
 function main() {
     const app = express();
     const port = 4000;
 
     app.use(express.json());
+    app.use('/hotel', hotelRouter);
     app.use('/auth', authenticationRouter);
 
 
