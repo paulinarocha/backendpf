@@ -12,7 +12,7 @@ export const login = (req, res) => {
             .status(401)
             .json({
                 success: false,
-                msg: "Ingrese los datos de ingresos"
+                msg: "los datos no estan registrados",
             })
     }
 
