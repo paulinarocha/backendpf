@@ -1,3 +1,4 @@
+import { encode, } from "../services/authentication.service.js";
 
 let users = [];
 
@@ -33,6 +34,11 @@ export const login = (req, res) => {
                 msg: "La contraseña es incorrecta"
             })
     }
+
+    const token =  encode({
+        sub:existentedUser.email,
+        name:existentedUser.name
+    })
 
     return res
         .status(200)

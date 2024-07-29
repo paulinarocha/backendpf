@@ -3,10 +3,10 @@ import { createServer } from 'http';
 import authenticationRouter from './routes/authentication.route.js';
 import hotelRouter from './routes/hotel.route.js';
 import authenticationMiddlewere from './middleweres/authentication.middlewere.js';
-
+import 'dotenv/config';
 function main() {
     const app = express();
-    const port = 4000;
+    const port = +process.env.APP_PORT ?? 4000;
 
     app.use(express.json());
     app.use(authenticationMiddlewere);
