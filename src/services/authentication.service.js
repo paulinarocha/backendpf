@@ -1,12 +1,19 @@
-import {SignJWT} from 'jose';
+import { SignJWT, generateSecret } from 'jose';
 const encode = async (payload) => {
     try {
-        const secretKey = process.env.APP_SECRET;
-        const token = await SignJWT()
+        const { exp, iat, sub, ...args } = payload;
+        const secretKey  = await generateSecret('HS256S');
+        //const secretKey = process.env.APP_SECRET;
+        const token = await new SignJWT()
+            .setProtectedHeader({
+                alg: 'HS256S',
+            })
+            .setExpirationTime(exp)
+            .setIssuedAt(iat)
+            .setSubject(sub)
             .sign(
-                'HS256S',
                 secretKey,
-                payload,
+                args,
             );
         return {
             success: true,

@@ -1,8 +1,8 @@
 import { encode, } from "../services/authentication.service.js";
 
 let users = [];
-
-export const login = (req, res) => {
+const ONE_MS = 1000;
+export const login = async (req, res) => {
     const {
         email,
         password,
@@ -35,9 +35,14 @@ export const login = (req, res) => {
             })
     }
 
-    const token =  encode({
-        sub:existentedUser.email,
-        name:existentedUser.name
+    const now = Date.now();
+
+    const {token} = await encode({
+        sub: existentedUser.email,
+        name: existentedUser.name,
+        iat:now,
+        exp: now + (ONE_MS * 60 * 60),
+
     })
 
     return res
@@ -45,10 +50,10 @@ export const login = (req, res) => {
         .json({
             success: true,
             data: {
-                ...existentedUser
+               token,
             },
-        })
-}
+        });
+};
 
 
 // funcion de registro
