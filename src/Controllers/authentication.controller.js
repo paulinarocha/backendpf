@@ -37,7 +37,7 @@ export const login = async (req, res) => {
 
     const now = Date.now();
 
-    const {token} = await encode({
+    const {token,} = await encode({
         sub: existentedUser.email,
         name: existentedUser.name,
         iat:now,

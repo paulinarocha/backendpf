@@ -2,17 +2,17 @@ import { SignJWT, generateSecret } from 'jose';
 const encode = async (payload) => {
     try {
         const { exp, iat, sub, ...args } = payload;
-        const secretKey  = await generateSecret('HS256S');
+        const secretKey = await generateSecret('HS256');
         //const secretKey = process.env.APP_SECRET;
         const token = await new SignJWT()
             .setProtectedHeader({
-                alg: 'HS256S',
+                alg: 'HS256',
             })
             .setExpirationTime(exp)
             .setIssuedAt(iat)
             .setSubject(sub)
             .sign(
-                secretKey,
+               secretKey,
                 args,
             );
         return {
